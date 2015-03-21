@@ -3,7 +3,7 @@ CompactConfig is a smart configurations system for Java. You can create and hand
 
 Examples
 ==========
-You can find a simple example [here](https://github.com/KennethWussmann/CompactConfig/examples)!
+You can find a simple example [here](https://github.com/KennethWussmann/CompactConfig/tree/master/examples)!
 
 Features
 ==========
