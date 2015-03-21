@@ -1,0 +1,4 @@
+[Insert smart title here]
+is this easy=true
+[/Insert smart title here]
+
