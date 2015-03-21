@@ -101,7 +101,7 @@ public class Configuration {
 			
 			for(String key : ce.getObjects().keySet()) {
 				String value = ce.getObjects().get(key);
-				if(value != null & value.equals("") == false & value.equalsIgnoreCase("null") == false) fileCache += key + "=" + value + System.getProperty("line.separator");
+				if(value != null & value.equalsIgnoreCase("null") == false) fileCache += key + "=" + value + System.getProperty("line.separator");
 				line++;
 			}
 			fileCache += "[/" + header + "]" + System.getProperty("line.separator") + System.getProperty("line.separator");
@@ -144,6 +144,10 @@ public class Configuration {
 	
 	public void set(String header, String key, Object value) {
 		if(getHeaders().contains(header)) {
+			if(value == null) {
+				entries.get(header).getObjects().remove(key);
+				return;
+			}
 			entries.get(header).set(key, value);
 		} else {
 			ConfigurationEntry ce = new ConfigurationEntry(this, header);
