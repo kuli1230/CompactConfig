@@ -1,3 +1,0 @@
-[Settings]
-  colors={"red","orange","blue","yellow","white"}
-[/]
