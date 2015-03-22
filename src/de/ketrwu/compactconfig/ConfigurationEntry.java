@@ -1,6 +1,7 @@
 package de.ketrwu.compactconfig;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class ConfigurationEntry {
 	
@@ -13,12 +14,14 @@ public class ConfigurationEntry {
 	}
 	
 	public void set(String key, Object value) {
-		if(value == null) {
-			
-		} else {
-			objects.put(key, value.toString());
+		if(value instanceof List<?>) {
+			String list = "{";
+			for(Object obj : ((List<?>) value)) list += "\"" + obj.toString() + "\",";
+			list = list.substring(0, list.length()-1);
+			list += "}";
+			value = list;
 		}
-		
+		objects.put(key, value.toString());
 	}
 	
 	public Object get(String key) {
