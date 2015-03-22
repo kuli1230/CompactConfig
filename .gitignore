@@ -57,7 +57,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-*.classpath
-*.project
-*.txt
-*.prefs

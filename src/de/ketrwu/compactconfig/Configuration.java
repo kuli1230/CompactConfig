@@ -8,11 +8,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 
-import de.ketrwu.compactconfig.exceptions.ConfigurationException;
 import de.ketrwu.compactconfig.exceptions.ConfigurationLoadException;
 import de.ketrwu.compactconfig.exceptions.ConfigurationParsingException;
 
@@ -54,29 +55,23 @@ public class Configuration {
 					comments.put(line, strLine);
 					continue;
 				}
-				if(strLine.startsWith("  ")) strLine = strLine.substring(2, strLine.length());
-				if(isConfigEndTag(entryHeader, strLine)) {
+				if(strLine.equals("[/" + entryHeader + "]")) {
 					if(entryHeader == null) {
 						throw new ConfigurationParsingException("Can't parse config \""+file.getAbsolutePath()+"\" at line " + line + "!");
 					} else {
 						entries.put(entryHeader, currentEntry);
 						currentEntry = new ConfigurationEntry(this, null);
-						entryHeader = null;
 					}
 				}
-				if(strLine.startsWith("[") & strLine.endsWith("]") & isConfigEndTag(entryHeader, strLine) == false) {
-					if(entryHeader == null) {
-						entryHeader = strLine.substring(1, strLine.length()-1);
-						currentEntry.setHeader(entryHeader);
-					} else {
-						throw new ConfigurationParsingException("Can't parse config \""+file.getAbsolutePath()+"\" at line " + line + "!");
-					}
+				if(strLine.startsWith("[") & strLine.endsWith("]") & strLine.startsWith("[/") == false) {
+					entryHeader = strLine.substring(1, strLine.length()-1);
+					currentEntry.setHeader(entryHeader);
 				} else {
-					if(strLine.contains("=") & isConfigEndTag(entryHeader, strLine) == false) {
+					if(strLine.contains("=") & strLine.equals("[/" + entryHeader + "]") == false) {
 						String[] stringEntry = strLine.split("\\=", 2);
 						currentEntry.set(stringEntry[0], stringEntry[1]);
 					} else {
-						if(!isConfigEndTag(entryHeader, strLine)) {
+						if(!strLine.equals("[/" + entryHeader + "]")) {
 							throw new ConfigurationParsingException("Can't parse config \""+file.getAbsolutePath()+"\" at line " + line + "!");
 						}
 					}
@@ -88,10 +83,6 @@ public class Configuration {
 		} catch (IOException e) {
 			throw new ConfigurationLoadException("Could not create config file \""+file.getAbsolutePath()+"\"!", e);
 		}
-	}
-	
-	private boolean isConfigEndTag(String headerText, String input) {
-		return input.equals("[/" + headerText + "]") | input.equalsIgnoreCase("[/END]") | input.equals("[/]");
 	}
 	
 	public void saveConfig() {
@@ -110,10 +101,10 @@ public class Configuration {
 			
 			for(String key : ce.getObjects().keySet()) {
 				String value = ce.getObjects().get(key);
-				if(value != null & value.equalsIgnoreCase("null") == false) fileCache += "  " + key + "=" + value + System.getProperty("line.separator");
+				if(value != null & value.equalsIgnoreCase("null") == false) fileCache += key + "=" + value + System.getProperty("line.separator");
 				line++;
 			}
-			fileCache += "[/]" + System.getProperty("line.separator") + System.getProperty("line.separator");
+			fileCache += "[/" + header + "]" + System.getProperty("line.separator") + System.getProperty("line.separator");
 			line++;
 		}
 		try {
@@ -123,12 +114,6 @@ public class Configuration {
 			reloadConfig();
 		} catch (ConfigurationLoadException | ConfigurationParsingException | FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	public void addDefault(String header, String key, Object value) {
-		if(!existEntry(header, key)) {
-			set(header, key, value);
 		}
 	}
 	
@@ -158,11 +143,7 @@ public class Configuration {
 	}
 	
 	public void set(String header, String key, Object value) {
-		if(key.contains("=")) {
-			new ConfigurationParsingException("Illegal character \"=\" in key for header \"" + header + "\"!").printStackTrace(); 
-			return;
-		}
-		if(existHeader(header)) {
+		if(getHeaders().contains(header)) {
 			if(value == null) {
 				entries.get(header).getObjects().remove(key);
 				return;
@@ -176,41 +157,10 @@ public class Configuration {
 	}
 	
 	public Object get(String header, String key) {
-		if(key.contains("=")) {
-			new ConfigurationParsingException("Illegal character \"=\" in key for header \"" + header + "\"!").printStackTrace(); 
-			return null;
-		}
-		if(existHeader(header)) {
+		if(entries.containsKey(header)) {
 			return entries.get(header).get(key);
 		}
 		return null;
-	}
-
-	public List<Object> getList(String header, String key) {
-		List<Object> list = new ArrayList<Object>();
-		Object obj = get(header, key);
-		String listString = (String) obj;
-		if(listString.startsWith("{\"") & listString.endsWith("\"}") & listString.contains(",")) {
-			listString = listString.substring(1, listString.length()-1);
-			for(String value : listString.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")) list.add((Object) value.substring(1, value.length()-1));
-		} else {
-			new ConfigurationException("String \"" + listString + "\" is malformed!").printStackTrace(); 
-			return null;
-		}
-		
-		return list;
-	}
-	
-	public List<String> getStringList(String header, String key) {
-		List<String> list = new ArrayList<String>();
-		for(Object value : getList(header, key)) list.add((String) value);
-		return list;
-	}
-	
-	public List<Integer> getIntegerList(String header, String key) {
-		List<Integer> list = new ArrayList<Integer>();
-		for(Object value : getList(header, key)) list.add(Integer.parseInt(value.toString()));
-		return list;
 	}
 	
 	public boolean getBoolean(String header, String key) {
@@ -231,10 +181,6 @@ public class Configuration {
 	
 	public float getFloat(String header, String key) {
 		return Float.parseFloat(get(header, key).toString());
-	}
-
-	public double getDouble(String header, String key) {
-		return Double.parseDouble(get(header, key).toString());
 	}
 
 	public File getFile() {
