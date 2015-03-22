@@ -1,8 +1,0 @@
-[List-Teste]
-  String-Liste={"AWo","JBW","Hamburg"}
-[/]
-
-[List-Test]
-  Integer-Liste={"1","4","3","6","8","33","5","765","3","3432"}
-[/]
-

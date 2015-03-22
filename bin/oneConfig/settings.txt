@@ -1,9 +1,9 @@
 [Integers]
-  testInt=9599
-[/]
+testInt=9599
+[/Integers]
 
 [Settings]
-  text=
-  isThisSimple=true
-[/]
+text=
+isThisSimple=true
+[/Settings]
 
