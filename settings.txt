@@ -1,0 +1,4 @@
+[Settings]
+  colors={"red","organge","blue","yellow","white"}
+[/]
+

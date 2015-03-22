@@ -1,0 +1,4 @@
+[Insert smart title here]
+  money=99999999
+[/]
+

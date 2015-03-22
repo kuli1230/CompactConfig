@@ -1,0 +1,9 @@
+[Integers]
+  testInt=9599
+[/]
+
+[Settings]
+  text=
+  isThisSimple=true
+[/]
+
