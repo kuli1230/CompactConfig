@@ -4,6 +4,13 @@ import de.ketrwu.compactconfig.Configuration;
 import de.ketrwu.compactconfig.exceptions.ConfigurationLoadException;
 import de.ketrwu.compactconfig.exceptions.ConfigurationParsingException;
 
+/**
+ * Simple and easy to use configuration system
+ * 
+ * @author Kenneth Wuﬂmann
+ * @version 1.2.0
+ */
+
 public class Main {
 	
 	public static Configuration config = new Configuration("settings.txt");

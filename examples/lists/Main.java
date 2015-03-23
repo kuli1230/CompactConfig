@@ -6,6 +6,13 @@ import java.util.List;
 
 import de.ketrwu.compactconfig.Configuration;
 
+/**
+ * Simple and easy to use configuration system
+ * 
+ * @author Kenneth Wuﬂmann
+ * @version 1.2.0
+ */
+
 public class Main {
 	
 	public static Configuration config = new Configuration("settings.txt");

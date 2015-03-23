@@ -3,6 +3,13 @@ package de.ketrwu.compactconfig;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Simple and easy to use configuration system
+ * 
+ * @author Kenneth Wuﬂmann
+ * @version 1.2.0
+ */
+
 public class ConfigurationEntry {
 	
 	Configuration config;

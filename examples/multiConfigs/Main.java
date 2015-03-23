@@ -2,6 +2,13 @@ package multiConfigs;
 
 import de.ketrwu.compactconfig.MultiConfigHandler;
 
+/**
+ * Simple and easy to use configuration system
+ * 
+ * @author Kenneth Wuﬂmann
+ * @version 1.2.0
+ */
+
 public class Main {
 	
 	public static MultiConfigHandler handler = new MultiConfigHandler();
