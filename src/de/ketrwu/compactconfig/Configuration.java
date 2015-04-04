@@ -273,7 +273,7 @@ public class Configuration {
 		List<Object> list = new ArrayList<Object>();
 		Object obj = get(header, key);
 		String listString = (String) obj;
-		if(listString.startsWith("{\"") & listString.endsWith("\"}") & listString.contains(",")) {
+		if(listString.startsWith("{\"") & listString.endsWith("\"}")) {
 			listString = listString.substring(1, listString.length()-1);
 			for(String value : listString.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")) list.add((Object) value.substring(1, value.length()-1));
 		} else {
