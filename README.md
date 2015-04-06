@@ -1,6 +1,12 @@
 # CompactConfig
 CompactConfig is a smart configurations system for Java. You can create and handle multiple configurations.
 
+PHP
+=====
+CompactConfig also exists for PHP. Check it out [here](https://github.com/KennethWussmann/CompactConfig-PHP)!\n
+Configurations created with Java are compatible with CompactConfig for PHP and vice versa.\n
+The CompactConfig for PHP is in beta yet.
+
 Examples
 ==========
 You can find a simple example [here](https://github.com/KennethWussmann/CompactConfig/tree/master/examples)!
