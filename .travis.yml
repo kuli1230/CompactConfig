@@ -1,0 +1,12 @@
+language: java
+jdk: oraclejdk8
+after_success:
+  - echo "<settings><servers><server><id>deployment</id><username>\${env.SONATYPE_USER}</username><password>\${env.SONATYPE_PASS}</password></server></servers></settings>" > ~/settings.xml
+  - mvn deploy -DupdateReleaseInfo=true --settings ~/settings.xml
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/e9c3739f088b8e7a0cec
+    on_success: change
+    on_failure: always
+    on_start: always
