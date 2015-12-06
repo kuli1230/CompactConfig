@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Simple and easy to use configuration system
  * 
- * @author Kenneth Wuﬂmann
+ * @author Kenneth Wu√ümann
  * @version 1.2.1
  */
 

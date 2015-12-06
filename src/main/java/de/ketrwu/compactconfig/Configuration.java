@@ -19,7 +19,7 @@ import de.ketrwu.compactconfig.exceptions.ConfigurationParsingException;
 /**
  * Simple and easy to use configuration system
  * 
- * @author Kenneth Wuﬂmann
+ * @author Kenneth Wu√ümann
  * @version 1.2.0
  */
 
