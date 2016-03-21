@@ -1,4 +1,4 @@
-# CompactConfig
+# CompactConfig [![Build Status](http://ci.ketrwu.de/buildStatus/icon?job=CompactConfig)](http://ci.ketrwu.de/job/CompactConfig/)
 CompactConfig is a smart configurations system for Java. You can create and handle multiple configurations.
 
 Examples
