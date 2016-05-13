@@ -39,7 +39,7 @@ You can also use Maven to depend on CompactConfig:
 <repositories>
     <repository>
       <id>ketrwu-repo</id>
-      <url>http://repo.ketrwu.de/content/repositories/snapshots/</url>
+      <url>http://repo.ketrwu.de/repository/maven-snapshots</url>
     </repository>
 </repositories>
 ```
